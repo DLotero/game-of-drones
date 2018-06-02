@@ -7,25 +7,39 @@ class Game extends Component {
     this.state = {
       firstPlayer: {
         name: '',
-        move: []
+        moves: []
       },
       secondPlayer: {
         name: '',
-        move: []
+        moves: []
       },
-      currentPlayer: '',
+      currentPlayer: 'firstPlayer', //firstPlayer makes first move
       round: 0,
       winner: null
     }
+
+    this.setPlayerName = this.setPlayerName.bind(this)
   }
 
-  setPlayerName(name, player) {
-    this.setState({[player]: name})
+  setPlayerName(playerName, player) {
+    this.setState({ [player]: {name: playerName}})
   }
 
   render() {
+    let round = this.state.round
+
     return (
-        <Players setPlayerName={this.setPlayerName}/>   
+      <div className="game">
+      {!round && //game hasn't started yet... ask for players names
+        <Players handleSetName={this.setPlayerName}/>
+      }
+      {
+        round > 0 && //game started... fight!
+        <div></div>
+      }
+      <div>{this.state.firstPlayer.name}</div>
+      <div>{this.state.secondPlayer.name}</div>
+      </div>
     )
   }
 }

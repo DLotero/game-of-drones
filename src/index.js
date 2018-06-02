@@ -19,7 +19,7 @@ const Home = () => {
           <div className="home__header-wrapper">
             <h2 className="home__header-text">GAME-OF-DRONES</h2>
           </div>
-          <div class="home__options-wrapper">
+          <div className="home__options-wrapper">
             <ul>
               <li><Link to="/game">PLAY</Link></li>
               <li><Link to="/history">HISTORY</Link></li>
