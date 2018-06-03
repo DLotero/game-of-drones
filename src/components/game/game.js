@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Players from '../players/players'
-import ActionButton from '../action-button/action-button'
 import Scoreboard from '../scoreboard/scoreboard'
 import Round from '../round/round'
 
@@ -28,17 +27,18 @@ class Game extends Component {
     }
 
     this.setPlayerName = this.setPlayerName.bind(this)
-    this.setRoundNum = this.setRoundNum.bind(this)
     this.startGame = this.startGame.bind(this)
     this.toNextRound = this.toNextRound.bind(this)
+    this.setRoundMove = this.setRoundMove.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
-  toggleCurrentPlayer(){
+  toggleCurrentPlayer() {
     let currentPlayer = this.state.currentPlayer
-    let nextPlayer = (!currentPlayer) ? 
-     'firstPlayer':
-     (currentPlayer === 'firstPlayer') 
-      ? 'secondPlayer': 'firstPlayer'
+    let nextPlayer = (!currentPlayer) ?
+      'firstPlayer' :
+      (currentPlayer === 'firstPlayer')
+        ? 'secondPlayer' : 'firstPlayer'
     this.setState({ currentPlayer: nextPlayer })
   }
 
@@ -47,48 +47,86 @@ class Game extends Component {
     this.toNextRound(1)
   }
 
+  collapseScore(currentRoundScore) {
+    let score = {}
+    currentRoundScore.forEach(round => {
+      if (round.winner !== 'TIE') {
+        if (!score[round.winner]) score[round.winner] = 1
+        else score[round.winner] = score[round.winner] + 1
+      }
+    });
+    return score;
+  }
+
+  validateWinner(currentRoundScore) {
+    let collapsedScore = this.collapseScore(currentRoundScore)
+    let winner = null
+    Object.keys(collapsedScore).forEach(player => {
+      if (collapsedScore[player] >= 3) winner = player
+    })
+    return winner
+  }
+
   validateEndGame() {
     //is there a winner?
     let currentScore = this.calculateScoreboard(this.state.firstPlayer, this.state.secondPlayer)
-    this.validateWinner(currentScore)
+    this.setWinner(this.validateWinner(currentScore))
   }
 
   setPlayerName(playerName, player) {
-    this.setState({ [player]: { name: playerName, moves:[] } }) //if we're setting player's name no moves have been done yet
+    this.setState({ [player]: { name: playerName, moves: [] } }) //if we're setting player's name no moves have been done yet
   }
 
   setRoundMove(move, player) {
     let currentPlayer = this.state[player]
     currentPlayer.moves.push(move)
-    this.setState({ [player]: Object.assign({}, currentPlayer)})
+    this.setState({ [player]: Object.assign({}, currentPlayer) })
     /* if current player is the second one 
      * the continuation of the game needs to be validated
      */
-    if(player === 'secondPlayer') this.validateEndGame()
-    else this.toggleCurrentPlayer() //it's time for the next player to move
+    if (player === 'secondPlayer') this.validateEndGame()
+
+    this.toggleCurrentPlayer() //it's time for the next player to move
+    this.toNextRound()
   }
 
   calculateScoreboard(firstPlayer, secondPlayer) {
     return firstPlayer.moves.map((move, index) => {
       let secondPlayerMove = secondPlayer.moves[index]
-      let roundNo = index + 1 
-      if(move === secondPlayerMove) return { winner: 'TIE ', round:roundNo}
-      if(beats[move] === secondPlayerMove ) {
+      let roundNo = index + 1
+      if (move === secondPlayerMove) return { winner: 'TIE ', round: roundNo }
+      if (beats[move] === secondPlayerMove) {
         /* if first player's move beats second player's move
          * first player wins */
-        return { winner: firstPlayer.name, round: roundNo}
-      }                                       
-      return { winner: secondPlayer.name, round: roundNo}
+        return { winner: firstPlayer.name, round: roundNo }
+      }
+      return { winner: secondPlayer.name, round: roundNo }
     })
   }
 
   setWinner(winner) {
-    this.setState({ winner: winner})
+    this.setState({ winner: winner })
   }
 
   toNextRound() {
     let nextRound = this.state.round + 1
     this.setState({ round: nextRound })
+  }
+
+  reset() {
+    this.setState({
+      firstPlayer: {
+        name: '',
+        moves: []
+      },
+      secondPlayer: {
+        name: '',
+        moves: []
+      },
+      currentPlayer: null,
+      round: 0,
+      winner: null
+    })
   }
 
   render() {
@@ -100,7 +138,7 @@ class Game extends Component {
         {!round && //game hasn't started yet... ask for players names
           <section className="game__pre-grame">
             <Players handleSetName={this.setPlayerName} />
-            <ActionButton action='START!' handleClick={this.startGame} />
+            <button onClick={this.startGame}>START!</button>
           </section>
         }
         {
@@ -121,10 +159,9 @@ class Game extends Component {
           (winner) && // there's a winner
           <section className="game__finished">
             <h1>{winner} THE IRON THRONE IS YOURS.</h1>
-            <ActionButton action="PLAY AGAIN" />
+            <button onClick={this.reset}>PLAY AGAIN</button>
           </section>
         }
-        <div>{this.state.currentPlayer}</div>
       </div>
     )
   }

@@ -4,7 +4,6 @@ class Scoreboard extends Component {
   shouldComponentUpdate(nextProps, nextState){
     let firstPlayer = nextProps.firstPlayer
     let secondPlayer = nextProps.secondPlayer
-    console.log('extProps', nextProps)
     if(firstPlayer.moves.length !== secondPlayer.moves.length) return false
     else 
       return true
