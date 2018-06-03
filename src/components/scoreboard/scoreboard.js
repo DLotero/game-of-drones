@@ -1,40 +1,34 @@
 import React, { Component } from 'react'
 
 class Scoreboard extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      winnerArr: []
-    }
-
-  }
-
   shouldComponentUpdate(nextProps, nextState){
-    console.log('props',nextProps)
-    console.log('nextstate', nextState)
+    let firstPlayer = nextProps.firstPlayer
+    let secondPlayer = nextProps.secondPlayer
+    console.log('extProps', nextProps)
+    if(firstPlayer.moves.length !== secondPlayer.moves.length) return false
+    else 
+      return true
   }
- 
-  calculateScoreboard(firstPlayer, secondPlayer) {
 
+  renderRoundsScore(winnersPerRound) {
+    return winnersPerRound.map((round, index) => {
+      return (
+        <div className="scoreboard__round" key={round.round}>
+          <div className="scoreboard__round-num">{round.round}</div>
+          <div className="scoreboard__round-winner">{round.winner}</div>
+        </div>)
+    })
   }
-
 
   render() {
+    let firstPlayer = this.props.firstPlayer
+    let secondPlayer = this.props.secondPlayer
+    let winnersPerRound = this.props.calculateScore(firstPlayer, secondPlayer)
     return (
       <section className="scoreboard">
         <div className="scoreboard__header"><h4>SCORE</h4></div>
         <div className="scoreboard__score">
-          {
-            this.state.winnerArr.map((winner, index) => {
-              return (
-                <div className="scoreboard__round">
-                  <div className="scoreboard__round-num">{index + 1}</div>
-                  <div className="scoreboard__round-winner">{winner}</div>
-                </div>
-                    )
-            })
-          }
+          {this.renderRoundsScore(winnersPerRound)}
       </div>
       </section>
     )
