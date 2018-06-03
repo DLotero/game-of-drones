@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './players.scss'
 
 const playerMapping = {
   'Player 1': 'firstPlayer',
@@ -31,10 +32,11 @@ class Players extends Component {
 }
 
 const PlayerInput = (props) => {
+
+  let placeholder = `Write ${props.playerLabel} name`
   return (
     <div className="player__container" >
-      <label className="player__label">{props.playerLabel}</label>
-      <input type="text" className="player__text-input" onBlur={(e) => {props.handleSetName(e, props.playerLabel)} }/>
+      <input type="text" placeholder={placeholder} className="player__text-input" onBlur={(e) => {props.handleSetName(e, props.playerLabel)} }/>
     </div>
   )
 }

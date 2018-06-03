@@ -21,8 +21,39 @@ a {
         color:inherit;
     }
 }
+
+button {
+    border:none;
+}
+
+input {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    &:focus {
+        outline-width: 0;
+    }
+}
+
+select {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    &:focus {
+        outline-width: 0;
+    }
+}
+
+option {
+    font-family: 'Roboto', sans-serif;
+    &:focus {
+        outline-width: 0;
+    }
+}
+
 #root {
     background-color: #FFC6C5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {

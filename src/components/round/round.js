@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import styles from './round.scss'
 
 class Round extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -12,13 +13,13 @@ class Round extends Component {
     this.handleMoveInput = this.handleMoveInput.bind(this)
   }
 
-  handleOnChange(e){
+  handleOnChange(e) {
     this.setState({ move: e.target.value })
-  } 
-  
+  }
+
   handleMoveInput(e, currentPlayer) {
     this.props.handleAddMove(this.state.move, this.props.currentPlayer)
-    this.setState({ move: 'rock'}) //reset it for next player
+    this.setState({ move: 'rock' }) //reset it for next player
   }
 
   render() {
@@ -26,11 +27,12 @@ class Round extends Component {
       <section className="round">
         <h3 className="round__header"> ROUND {this.props.round}</h3>
         <div className="round__player-move">
-          <h4 className="round__current-player">{this.props.playerName}</h4>
+          <h4 className={`round__current-player
+            round__current-player--${this.props.currentPlayer}`}>{this.props.playerName}</h4>
           <div className="move-input">
             <div className="move-input__select-wrapper">
-              <select className="move-input__select" 
-                onChange={this.handleOnChange} 
+              <select className="move-input__select"
+                onChange={this.handleOnChange}
                 value={this.state.move}>
                 <option value="rock">Rock</option>
                 <option value="paper">Paper</option>

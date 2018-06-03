@@ -1,0 +1,15 @@
+.player__container {
+    flex-basis: 45%;
+    
+    .player__text-input {
+        width:100%;
+        color:#FF7A03;
+        border-bottom: 1px solid #FF7103;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .player__container .player__text-input {
+        text-align: center;
+    }
+}

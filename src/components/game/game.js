@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Players from '../players/players'
 import Scoreboard from '../scoreboard/scoreboard'
 import Round from '../round/round'
+import styles from './game.scss'
 
 const beats = {
   paper: 'rock',
@@ -138,7 +139,7 @@ class Game extends Component {
         {!round && //game hasn't started yet... ask for players names
           <section className="game__pre-grame">
             <Players handleSetName={this.setPlayerName} />
-            <button onClick={this.startGame}>START!</button>
+            <button className="game__start-btn" onClick={this.startGame}>START!</button>
           </section>
         }
         {
@@ -159,7 +160,7 @@ class Game extends Component {
           (winner) && // there's a winner
           <section className="game__finished">
             <h1>{winner} THE IRON THRONE IS YOURS.</h1>
-            <button onClick={this.reset}>PLAY AGAIN</button>
+            <button className="game__play-again-btn" onClick={this.reset}>PLAY AGAIN</button>
           </section>
         }
       </div>
