@@ -1,25 +1,28 @@
 const express = require('express');
-//const routes = require('./routes');
 const app = express();
 
-const jsonParser = require('body-parser').json;
 const mongoose = require('mongoose');
 const url = 'mongodb://localhost:27017/GAME_OF_DRONES'
+const jsonParser = require('body-parser').json;
 
 mongoose.connect(url);
 const db = mongoose.connection;
 
+
 db.on('error', err => {
-  console.error(`Error while connecting to DB: ${err.message}`);
+  console.error(`Error while connecting to DB: ${err.message}`)
 });
 db.once('open', () => {
-  console.log('DB connected successfully!');
+  console.log('DB connected successfully!')
 });
 
-app.use(jsonParser());
+const routes = require('./API/routes/routes')
 
-const port = process.env.port ||42000;
+app.use(jsonParser())
+app.use('/api', routes)
+
+const port = process.env.port ||4200
 
 app.listen(port, () => {
-  console.log(`Web server listening on: ${port}`);
+  console.log(`Web server listening on: ${port}`)
 });

@@ -8,4 +8,4 @@ const GameHistory = new Schema({
     createdDate: { type:Date, default: Date.now}
 })
 
-module.exports.GameHistory = GameHistory
+module.exports.GameHistory = mongoose.model('GameHistory', GameHistory)
