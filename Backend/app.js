@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017/GAME_OF_DRONES'
+/* this SHOULDN'T be here by any means in a real app,
+ * much less in a public repo...but I don't want to have
+ * people checking the app configuring mongo and db's and collections..
+ */
+const url = 'mongodb://uruit-dlotero:uruitDrones123@ds247170.mlab.com:47170/game_of_drones'
 const jsonParser = require('body-parser').json;
 
 mongoose.connect(url);
