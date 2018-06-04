@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Players from '../players/players'
 import Scoreboard from '../scoreboard/scoreboard'
 import Round from '../round/round'
+import { saveGame } from '../../services/gameHistory.service'
 import styles from './game.scss'
 
 const beats = {
@@ -34,6 +35,19 @@ class Game extends Component {
     this.reset = this.reset.bind(this)
   }
 
+  buildGameHistory(winner) {
+    let loser = this.state.firstPlayer.name === this.winner 
+      ? this.state.secondPlayer.name
+      : this.state.firstPlayer.name
+    
+      return {
+        roundsNum: this.state.round,
+        winner: winner,
+        otherPlayer: loser,
+        createdDate: Date.now()
+      }
+  }
+
   toggleCurrentPlayer() {
     let currentPlayer = this.state.currentPlayer
     let nextPlayer = (!currentPlayer) ?
@@ -63,7 +77,7 @@ class Game extends Component {
     let collapsedScore = this.collapseScore(currentRoundScore)
     let winner = null
     Object.keys(collapsedScore).forEach(player => {
-      if (collapsedScore[player] >= 3) winner = player
+      if (player !== 'TIE' && collapsedScore[player] >= 3) winner = player
     })
     return winner
   }
@@ -71,7 +85,12 @@ class Game extends Component {
   validateEndGame() {
     //is there a winner?
     let currentScore = this.calculateScoreboard(this.state.firstPlayer, this.state.secondPlayer)
-    this.setWinner(this.validateWinner(currentScore))
+    let winner = this.validateWinner(currentScore)
+    this.setWinner(winner)
+    if(winner){
+      let gameHistory = this.buildGameHistory(winner)
+      saveGame(gameHistory)
+    }
   }
 
   setPlayerName(playerName, player) {
@@ -95,7 +114,7 @@ class Game extends Component {
     return firstPlayer.moves.map((move, index) => {
       let secondPlayerMove = secondPlayer.moves[index]
       let roundNo = index + 1
-      if (move === secondPlayerMove) return { winner: 'TIE ', round: roundNo }
+      if (move === secondPlayerMove) return { winner: 'TIE', round: roundNo }
       if (beats[move] === secondPlayerMove) {
         /* if first player's move beats second player's move
          * first player wins */

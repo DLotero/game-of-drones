@@ -6,3 +6,13 @@ export const getGameHistory = () => {
     .then(res => res.json())
     .then((data) => data)
 }
+
+export const saveGame = (game) => {
+  console.log(game)
+  console.log(JSON.stringify(game))
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(game)
+  }).then((res) => res.json).then((res) => console.log(res)) 
+}

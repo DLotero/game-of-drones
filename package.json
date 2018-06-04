@@ -1,0 +1,23 @@
+{
+  "name": "game-of-drones",
+  "version": "1.0.0",
+  "description": "full stack game-of-drones",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd Backend && npm run start",
+    "client": "cd Frontend && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DLotero/game-of-drones.git"
+  },
+  "author": "dlotero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DLotero/game-of-drones/issues"
+  },
+  "homepage": "https://github.com/DLotero/game-of-drones#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
+}
