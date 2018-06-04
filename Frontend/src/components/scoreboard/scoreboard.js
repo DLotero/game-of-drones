@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import style from './scoreboard.scss'
 
 class Scoreboard extends Component {
   shouldComponentUpdate(nextProps, nextState){
@@ -13,7 +14,7 @@ class Scoreboard extends Component {
     return winnersPerRound.map((round, index) => {
       return (
         <div className="scoreboard__round" key={round.round}>
-          <div className="scoreboard__round-num">{round.round}</div>
+          <div className="scoreboard__round-num">Round# {round.round}</div>
           <div className="scoreboard__round-winner">{round.winner}</div>
         </div>)
     })

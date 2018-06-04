@@ -1,5 +1,9 @@
 .round {
+  flex: 2;
+  margin-left: 15px;
+  
   .round__header {
+    text-align: center;
     font-size: 35px;
     color: #3C989E;
     text-shadow: 2px 2px 2px rgba(150, 150, 150, 0.87);

@@ -1,0 +1,32 @@
+.scoreboard {
+	flex: 2;
+
+  .scoreboard__header { 
+		text-align: center;
+		color: #ED5276;
+		font-weight: 700;
+		font-size: 30px;
+	}
+	
+	.scoreboard__score {
+			display: flex;
+			text-align: center;
+			flex-flow: column;
+			color: #ED5276;
+			font-size: 20px;
+	}
+	.scoreboard__round {
+			display: flex;
+			flex-flow: row;
+			justify-content: space-evenly;
+
+			.scoreboard__round-num {
+				flex: 1;
+				margin-right: 20px;
+			}
+
+			.scoreboard__round-winner {
+				flex:1;
+			}
+	}
+}

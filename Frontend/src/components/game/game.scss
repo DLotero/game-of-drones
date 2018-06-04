@@ -61,6 +61,15 @@
 	}
 }
 
+@media only screen  and (min-width : 800px) {
+	.game {
+		.game__in-play {
+      flex-flow: row nowrap;
+      justify-content: space-evenly;
+	  }
+  }
+}
+
 @media only screen  and (min-width : 1224px) {
 	.game__start-btn {
 		font-size: 50px;
