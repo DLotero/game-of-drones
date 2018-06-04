@@ -104,10 +104,13 @@ class Game extends Component {
     /* if current player is the second one 
      * the continuation of the game needs to be validated
      */
-    if (player === 'secondPlayer') this.validateEndGame()
+    if (player === 'secondPlayer'){
+      this.validateEndGame()
+      this.toNextRound() //after the second player makes a move, new round
+    }
 
     this.toggleCurrentPlayer() //it's time for the next player to move
-    this.toNextRound()
+    
   }
 
   calculateScoreboard(firstPlayer, secondPlayer) {

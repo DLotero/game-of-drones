@@ -8,8 +8,6 @@ export const getGameHistory = () => {
 }
 
 export const saveGame = (game) => {
-  console.log(game)
-  console.log(JSON.stringify(game))
   fetch(apiUrl, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},

@@ -11,6 +11,7 @@ class Scoreboard extends Component {
   }
 
   renderRoundsScore(winnersPerRound) {
+    console.log('winnersperround', winnersPerRound)
     return winnersPerRound.map((round, index) => {
       return (
         <div className="scoreboard__round" key={round.round}>
