@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "full stack game-of-drones",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd Backend && npm run start",
-    "client": "cd Frontend && npm run start"
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+    "build": "npm install && npm run build-client && npm run build-server",
+    "build-client": "cd Frontend && npm install",
+    "build-server": "cd Backend && npm install",
+    "start-server": "cd Backend && npm run start",
+    "start-client": "cd Frontend && npm run start"
   },
   "repository": {
     "type": "git",
