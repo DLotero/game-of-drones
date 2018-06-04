@@ -1,4 +1,0 @@
-Install mongodb
-	-create a db named GAME_OF_DRONES
-		-create a collection called GAMES_HISTORY
-			db.createCollection("GAMES_HISTORY", {})
